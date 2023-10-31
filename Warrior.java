@@ -9,6 +9,15 @@ public class Warrior extends Character {
         System.out.println(this.name + ": My name will go down in history!");
     }
 
+    public Warrior(String name, int capacity) {
+        super(name, "Warrior", capacity);
+        this.life = 100;
+        this.strength = 10;
+        this.agility = 8;
+        this.wit = 3;
+        System.out.println(this.name + ": My name will go down in history!");
+    }
+
     @Override
     public void attack(String weapon) {
         if (weapon.equals("hammer") || weapon.equals("sword")) {

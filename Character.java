@@ -1,11 +1,12 @@
-public abstract class Character implements Movable {
+public abstract class Character implements Movable, Comparable<Character> {
 
+    protected final String RPGClass;
     protected String name;
     protected int life;
     protected int agility;
     protected int strength;
     protected int wit;
-    protected final String RPGClass;
+    protected int capacity = 0;
 
     protected Character(String name, String RPGClass) {
         this.name = name;
@@ -14,6 +15,16 @@ public abstract class Character implements Movable {
         this.agility = 2;
         this.strength = 2;
         this.wit = 2;
+    }
+
+    public Character(String name, String RPGClass, int capacity) {
+        this.name = name;
+        this.RPGClass = RPGClass;
+        this.life = 50;
+        this.agility = 2;
+        this.strength = 2;
+        this.wit = 2;
+        this.capacity = capacity;
     }
 
     public String getName() {
@@ -66,5 +77,21 @@ public abstract class Character implements Movable {
 
     public final void unsheathe() {
         System.out.println(this.name + ": unsheathes his weapon.");
+    }
+
+    public int compareTo(Character character) {
+        if (this instanceof Mage && character instanceof Warrior) {
+            if(this.capacity * this.capacity < character.capacity) {
+                return -1;
+            } else {
+                return 1;
+            }
+        } else if (this.capacity < character.capacity) {
+            return -1;
+        }
+        else if (this.capacity > character.capacity) {
+            return 1;
+        }
+        return 0;
     }
 }
