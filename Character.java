@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public abstract class Character implements Movable, Comparable<Character> {
 
     protected final String RPGClass;
@@ -47,6 +49,10 @@ public abstract class Character implements Movable, Comparable<Character> {
         return wit;
     }
 
+    public int getCapacity() {
+        return capacity;
+    }
+
     public String getRPGClass() {
         return RPGClass;
     }
@@ -79,18 +85,19 @@ public abstract class Character implements Movable, Comparable<Character> {
         System.out.println(this.name + ": unsheathes his weapon.");
     }
 
+    @Override
     public int compareTo(Character character) {
-        if (this instanceof Mage && character instanceof Warrior) {
-            if(this.capacity * this.capacity < character.capacity) {
-                return -1;
-            } else {
-                return 1;
+        if (Objects.equals(this.getRPGClass(), character.getRPGClass())) {
+            if (this.getCapacity() == character.getCapacity()) {
+                return 0;
             }
-        } else if (this.capacity < character.capacity) {
-            return -1;
-        }
-        else if (this.capacity > character.capacity) {
-            return 1;
+            return this.getCapacity() > character.getCapacity() ? 1 : -1;
+        } else {
+            if (Objects.equals(this.getRPGClass(), "Warrior")) {
+                return this.getCapacity() % character.getCapacity() == 0 ? 1 : -1;
+            } else if (Objects.equals(this.getRPGClass(), "Mage")) {
+                return character.getCapacity() % this.getCapacity() == 0 ? -1 : 1;
+            }
         }
         return 0;
     }
